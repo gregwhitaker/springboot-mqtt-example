@@ -45,8 +45,12 @@ public class MqttConfiguration {
     }
 
     @Bean
-    public IntegrationFlow mqttOutboundFlow(@Qualifier("mqttClientId") String mqttClientId,
+    public IntegrationFlow mqttOutboundFlow(MqttSettings settings,
+                                            @Qualifier("mqttClientId") String mqttClientId,
                                             MqttPahoClientFactory mqttClientFactory) {
-        return f -> f.handle(new MqttPahoMessageHandler(mqttClientId, mqttClientFactory));
+        MqttPahoMessageHandler mqttPahoMessageHandler = new MqttPahoMessageHandler(mqttClientId, mqttClientFactory);
+        mqttPahoMessageHandler.setDefaultTopic(settings.getTopic());
+
+        return f -> f.handle(mqttPahoMessageHandler);
     }
 }

@@ -13,6 +13,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.integration:spring-integration-mqtt'
     implementation 'io.projectreactor:reactor-core'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.1'
 }
 
 // Packaging

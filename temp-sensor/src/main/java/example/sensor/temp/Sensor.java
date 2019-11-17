@@ -1,19 +1,20 @@
 package example.sensor.temp;
 
+import example.sensor.temp.gateway.TempMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.integration.dsl.IntegrationFlow;
-import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
+import org.springframework.integration.support.json.Jackson2JsonObjectMapper;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
 import java.time.Duration;
-import java.util.UUID;
+import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -30,6 +31,8 @@ public class Sensor implements CommandLineRunner {
     @Autowired
     private IntegrationFlow mqttOutboundFlow;
 
+    private Jackson2JsonObjectMapper mapper = new Jackson2JsonObjectMapper();
+
     @Override
     public void run(String... args) throws Exception {
         LOG.info("Starting Sensor: {}", mqttClientId);
@@ -38,15 +41,19 @@ public class Sensor implements CommandLineRunner {
                 .map(tick -> ThreadLocalRandom.current().nextDouble(70.0, 72.0))
                 .subscribe(temp -> {
                     LOG.info("Temp: " + temp);
-                    mqttOutboundFlow.getInputChannel().send(new Message<Double>() {
+                    mqttOutboundFlow.getInputChannel().send(new Message<String>() {
                         @Override
-                        public Double getPayload() {
-                            return temp;
+                        public String getPayload() {
+                            try {
+                                return mapper.toJson(new TempMessage(mqttClientId, temp));
+                            } catch (Exception e) {
+                                throw new RuntimeException("Exception occurred building mqtt message", e);
+                            }
                         }
 
                         @Override
                         public MessageHeaders getHeaders() {
-                            return null;
+                            return new MessageHeaders(Collections.EMPTY_MAP);
                         }
                     });
                 });

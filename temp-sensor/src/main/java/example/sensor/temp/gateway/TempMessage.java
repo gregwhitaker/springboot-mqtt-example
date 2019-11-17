@@ -25,4 +25,12 @@ public class TempMessage {
     public void setTemp(double temp) {
         this.temp = temp;
     }
+
+    @Override
+    public String toString() {
+        return "TempMessage{" +
+                "sensorId='" + sensorId + '\'' +
+                ", temp=" + temp +
+                '}';
+    }
 }
