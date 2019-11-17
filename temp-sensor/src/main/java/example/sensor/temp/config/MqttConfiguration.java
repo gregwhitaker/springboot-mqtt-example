@@ -2,19 +2,28 @@ package example.sensor.temp.config;
 
 import example.sensor.temp.config.settings.MqttSettings;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.integration.channel.DirectChannel;
+import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
 import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
-import org.springframework.messaging.MessageChannel;
+import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
+
+import java.util.UUID;
 
 @Configuration
 @EnableConfigurationProperties({
         MqttSettings.class
 })
 public class MqttConfiguration {
+
+    @Bean
+    public String mqttClientId() {
+        return "temp-" + UUID.randomUUID().toString().replace("-", "");
+    }
 
     @Bean
     public MqttPahoClientFactory mqttClientFactory(MqttSettings settings) {
@@ -35,19 +44,9 @@ public class MqttConfiguration {
         return factory;
     }
 
-//    @Bean
-//    @ServiceActivator(inputChannel = "tempOutboundChannel")
-//    public MessageHandler mqttOutbound() {
-//        MqttPahoMessageHandler messageHandler =
-//                new MqttPahoMessageHandler("testClient", mqttClientFactory());
-//        messageHandler.setAsync(true);
-//        messageHandler.setDefaultTopic("testTopic");
-//
-//        return messageHandler;
-//    }
-
     @Bean
-    public MessageChannel tempOutboundChannel() {
-        return new DirectChannel();
+    public IntegrationFlow mqttOutboundFlow(@Qualifier("mqttClientId") String mqttClientId,
+                                            MqttPahoClientFactory mqttClientFactory) {
+        return f -> f.handle(new MqttPahoMessageHandler(mqttClientId, mqttClientFactory));
     }
 }
