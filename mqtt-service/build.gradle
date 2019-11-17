@@ -1,7 +1,10 @@
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+
 plugins {
     id 'java'
     id 'org.springframework.boot'
     id 'io.spring.dependency-management'
+    id 'com.bmuschko.docker-remote-api'
 }
 
 sourceCompatibility = 1.8
@@ -10,4 +13,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.integration:spring-integration-mqtt'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+}
+
+// Packaging
+task buildImage(type: DockerBuildImage, dependsOn: build) {
+    buildArgs = ['JAR_FILE': "${bootJar.archiveName}"]
+    dockerFile = file("${projectDir}/Dockerfile")
+    inputDir = file("${projectDir}")
+    tags = ["gregnetifi/mqtt-example-${projectDir.name}", "gregnetifi/mqtt-example-${projectDir.name}:${version}"]
 }
