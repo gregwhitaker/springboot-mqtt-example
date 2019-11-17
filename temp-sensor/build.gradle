@@ -8,5 +8,6 @@ sourceCompatibility = 1.8
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'io.projectreactor:reactor-core'
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
 }
