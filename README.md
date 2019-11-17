@@ -1,5 +1,20 @@
 # springboot-mqtt-example
 
+## Building the Example
+Run the following command to build the example:
+
+    ./gradlew clean buildImage
+    
+This command builds the example as a set of Docker images.
+
+## Running the Example
+Run the following command to start the example:
+
+    docker-compose up
+    
+## Bugs and Feedback
+For bugs, questions, and discussions please use the [Github Issues](https://github.com/gregwhitaker/springboot-mqtt-example/issues).
+
 ## License
 MIT License
 
