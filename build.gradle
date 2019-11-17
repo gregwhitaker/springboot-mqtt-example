@@ -1,3 +1,19 @@
 plugins {
+    id "com.gradle.build-scan" version "3.0"
+    id 'org.springframework.boot' version '2.1.5.RELEASE' apply false
+    id "io.spring.dependency-management" version "1.0.7.RELEASE" apply false
+}
 
+buildScan {
+    termsOfServiceUrl = "https://gradle.com/terms-of-service"
+    termsOfServiceAgree = "yes"
+}
+
+allprojects {
+    apply plugin: 'idea'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
 }
