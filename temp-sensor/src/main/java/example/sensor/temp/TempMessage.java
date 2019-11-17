@@ -1,4 +1,4 @@
-package example.sensor.temp.gateway;
+package example.sensor.temp;
 
 public class TempMessage {
 
