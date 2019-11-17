@@ -20,8 +20,14 @@ public class MqttConfiguration {
     public MqttPahoClientFactory mqttClientFactory(MqttSettings settings) {
         MqttConnectOptions options = new MqttConnectOptions();
         options.setServerURIs(new String[] { String.format("tcp://%s:%s", settings.getHostname(), settings.getPort()) });
-        options.setUserName(settings.getUsername());
-        options.setPassword(settings.getPassword().toCharArray());
+
+        if (settings.getUsername() != null && !settings.getUsername().isEmpty()) {
+            options.setUserName(settings.getUsername());
+        }
+
+        if (settings.getPassword() != null && !settings.getPassword().isEmpty()) {
+            options.setPassword(settings.getPassword().toCharArray());
+        }
 
         DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
         factory.setConnectionOptions(options);
