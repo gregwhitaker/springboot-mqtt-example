@@ -9,9 +9,19 @@ Run the following command to build the example:
 This command builds the example as a set of Docker images.
 
 ## Running the Example
-Run the following command to start the example:
+Follow the steps below to run the example:
 
-    docker-compose up
+1. Run the following command to start the example:
+
+        docker-compose up
+        
+2. Execute the following command to get the current count and average of temperature observations:
+
+        curl http://localhost:8080/temps
+        
+    If successful, you will see a response similar to the following:
+
+        {"count":16,"average":71.03261965593954}
     
 ## Bugs and Feedback
 For bugs, questions, and discussions please use the [Github Issues](https://github.com/gregwhitaker/springboot-mqtt-example/issues).
