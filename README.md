@@ -23,7 +23,7 @@ Follow the steps below to run the example:
         
 2. Execute the following command to get the current count and average of temperature observations:
 
-        curl http://localhost:8080/temps
+        curl http://localhost:8080/temps/stats
         
     If successful, you will see a response similar to the following:
 

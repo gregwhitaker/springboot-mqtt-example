@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
  * Controller for accessing temperature data.
  */
 @RestController
-public class TempController {
+public class TempStatsController {
 
     @Autowired
     private TempStatistics tempStats;
 
-    @GetMapping(value = "/temps",
+    @GetMapping(value = "/temps/stats",
                 produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getTemps() {
         GetTempsResponse response = new GetTempsResponse();
@@ -29,13 +29,13 @@ public class TempController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping(value = "/temps/count",
+    @GetMapping(value = "/temps/stats/count",
                 produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getTempCount() {
         return ResponseEntity.ok(new GetTempCountResponse(tempStats.getCount()));
     }
 
-    @GetMapping(value = "/temps/avg",
+    @GetMapping(value = "/temps/stats/avg",
                 produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getAverageTemp() {
         return ResponseEntity.ok(new GetTempAverageResponse(tempStats.getAverage()));
