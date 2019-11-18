@@ -1,4 +1,4 @@
-package example.service.mqtt;
+package example.service.mqtt.statistics;
 
 import org.springframework.stereotype.Component;
 
