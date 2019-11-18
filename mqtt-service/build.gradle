@@ -10,8 +10,11 @@ plugins {
 sourceCompatibility = 1.8
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation project(':model')
+
     implementation 'org.springframework.integration:spring-integration-mqtt'
+    // This is a temporary fix for https://github.com/spring-projects/spring-integration/issues/3051
+    implementation 'org.springframework.integration:spring-integration-jmx'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 }
 

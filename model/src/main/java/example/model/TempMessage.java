@@ -1,9 +1,11 @@
-package example.sensor.temp;
+package example.model;
 
 public class TempMessage {
 
     private String sensorId;
     private double temp;
+
+    public TempMessage() {}
 
     public TempMessage(String sensorId, double temp) {
         this.sensorId = sensorId;

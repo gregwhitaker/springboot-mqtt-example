@@ -2,4 +2,5 @@ rootProject.name = 'springboot-mqtt-example'
 include 'service'
 include 'temp-sensor'
 include 'mqtt-service'
+include 'model'
 

@@ -10,6 +10,8 @@ plugins {
 sourceCompatibility = 1.8
 
 dependencies {
+    implementation project(':model')
+    
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.integration:spring-integration-mqtt'
     implementation 'io.projectreactor:reactor-core'
