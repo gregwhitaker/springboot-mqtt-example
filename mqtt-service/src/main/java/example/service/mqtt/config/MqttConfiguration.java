@@ -1,6 +1,6 @@
 package example.service.mqtt.config;
 
-import example.service.mqtt.TempMessageHandler;
+import example.service.mqtt.handlers.TempMessageHandler;
 import example.service.mqtt.config.settings.MqttSettings;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
