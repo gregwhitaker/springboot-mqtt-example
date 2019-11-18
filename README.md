@@ -1,4 +1,5 @@
 # springboot-mqtt-example
+An example of integrating MQTT messaging into Spring Boot.
 
 ## Building the Example
 Run the following command to build the example:
