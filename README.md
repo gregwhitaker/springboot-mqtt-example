@@ -15,6 +15,12 @@ Follow the steps below to run the example:
 
         docker-compose up
         
+   The Docker Compose script starts the following containers:
+   
+   * 1 - Eclipse Mosquitto MQTT Broker
+   * 1 - [mqtt-service](mqtt-service) to collect temperature statistics.
+   * 2 - [temp-sensor](temp-sensor) to generate temperature data.
+        
 2. Execute the following command to get the current count and average of temperature observations:
 
         curl http://localhost:8080/temps
